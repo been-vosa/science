@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R&D 부정수급 체크리스트 및 신고 안내 포털</title>
+<meta name="description" content="연구개발(R&D) 과정에서 발생하는 부정수급 자가진단 체크리스트 및 신고 경로 안내 포털">
+<style>
+/* ========== CSS Reset & Variables ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy-900: #0a1628;
+  --navy-800: #0f2042;
+  --navy-700: #142d5c;
+  --navy-600: #1a3a6e;
+  --blue-500: #2563eb;
+  --blue-400: #3b82f6;
+  --blue-300: #60a5fa;
+  --blue-200: #93c5fd;
+  --blue-100: #dbeafe;
+  --blue-50: #eff6ff;
+  --teal-500: #14b8a6;
+  --teal-400: #2dd4bf;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --yellow-500: #eab308;
+  --yellow-100: #fef9c3;
+  --orange-500: #f97316;
+  --red-500: #ef4444;
+  --red-100: #fee2e2;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --white: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+  --shadow-xl: 0 20px 50px rgba(0,0,0,0.15);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ========== Header ========== */
+.header {
+  background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 50%, var(--blue-500) 100%);
+  color: var(--white);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.logo-text h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.logo-text span {
+  font-size: 11px;
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+/* ========== Navigation ========== */
+.nav {
+  display: flex;
+  gap: 4px;
+  padding-bottom: 0;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px 10px 0 0;
+  transition: var(--transition);
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-btn.active {
+  color: var(--white);
+  background: rgba(255,255,255,0.15);
+  font-weight: 600;
+}
+
+.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: var(--teal-400);
+  border-radius: 3px 3px 0 0;
+}
+
+/* Mobile menu */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* ========== Main Content ========== */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+  min-height: calc(100vh - 200px);
+}
+
+.page { display: none; animation: fadeIn 0.4s ease; }
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== Home Page ========== */
+.hero {
+  background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-600) 100%);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px;
+  color: var(--white);
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: 10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(20,184,166,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.hero p {
+  font-size: 15px;
+  opacity: 0.85;
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(20,184,166,0.2);
+  border: 1px solid rgba(20,184,166,0.4);
+  color: var(--teal-400);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.quick-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.quick-card:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.quick-card .icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.quick-card h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.quick-card p {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* Section Cards */
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy-800);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title .emoji {
+  font-size: 24px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.info-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: var(--transition);
+}
+
+.info-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.info-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy-800);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-card p, .info-card li {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.7;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-card ul li {
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.info-card ul li::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+  color: var(--blue-400);
+  font-weight: bold;
+}
+
+/* Process Steps */
+.process-steps {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.step {
+  flex: 1;
+  min-width: 180px;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  position: relative;
+}
+
+.step-num {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--blue-500), var(--navy-700));
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 auto 12px;
+}
+
+.step h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy-800);
+  margin-bottom: 6px;
+}
+
+.step p {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.step-arrow {
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--gray-300);
+  z-index: 1;
+}
+
+/* ========== Checklist Page ========== */
+.checklist-intro {
+  background: linear-gradient(135deg, var(--blue-50), var(--white));
+  border: 1px solid var(--blue-200);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.checklist-intro h3 {
+  color: var(--navy-800);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.checklist-intro p {
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+.progress-bar-container {
+  background: var(--gray-200);
+  border-radius: 20px;
+  height: 8px;
+  margin: 20px 0 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue-500), var(--teal-500));
+  border-radius: 20px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: var(--gray-500);
+  text-align: right;
+}
+
+.category-section {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+}
+
+.category-header {
+  background: linear-gradient(135deg, var(--navy-800), var(--navy-600));
+  color: var(--white);
+  padding: 16px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition);
+}
+
+.category-header:hover {
+  filter: brightness(1.1);
+}
+
+.category-header .arrow {
+  margin-left: auto;
+  transition: transform 0.3s;
+  font-size: 12px;
+}
+
+.category-header.open .arrow {
+  transform: rotate(180deg);
+}
+
+.category-body {
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.category-body.open {
+  max-height: 2000px;
+  padding: 8px 0;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--gray-100);
+  transition: background 0.2s;
+}
+
+.check-item:last-child {
+  border-bottom: none;
+}
+
+.check-item:hover {
+  background: var(--blue-50);
+}
+
+.check-item label {
+  font-size: 14px;
+  color: var(--gray-700);
+  cursor: pointer;
+  flex: 1;
+  line-height: 1.6;
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--gray-600);
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+  accent-color: var(--blue-500);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue-500), var(--navy-700));
+  color: var(--white);
+  border: none;
+  padding: 14px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--gray-600);
+  border: 1px solid var(--gray-300);
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.btn-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+/* Result */
+.result-container {
+  display: none;
+  margin-top: 32px;
+  animation: fadeIn 0.5s ease;
+}
+
+.result-container.show {
+  display: block;
+}
+
+.result-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.result-header h3 {
+  font-size: 20px;
+  color: var(--navy-800);
+  margin-bottom: 8px;
+}
+
+/* Gauge */
+.gauge-container {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.gauge {
+  width: 200px;
+  height: 120px;
+  position: relative;
+}
+
+.gauge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.gauge-label {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.gauge-value {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.gauge-text {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-top: 2px;
+}
+
+/* Result Level Cards */
+.result-level {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.level-card {
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  min-width: 140px;
+  opacity: 0.4;
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+
+.level-card.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.level-card.safe {
+  background: var(--green-100);
+  color: #166534;
+}
+
+.level-card.safe.active {
+  border-color: var(--green-500);
+}
+
+.level-card.caution {
+  background: var(--yellow-100);
+  color: #854d0e;
+}
+
+.level-card.caution.active {
+  border-color: var(--yellow-500);
+}
+
+.level-card.danger {
+  background: var(--red-100);
+  color: #991b1b;
+}
+
+.level-card.danger.active {
+  border-color: var(--red-500);
+}
+
+.level-card .level-icon {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.level-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.level-card p {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.recommendation {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.recommendation h4 {
+  color: var(--navy-800);
+  font-size: 15px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recommendation ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recommendation ul li {
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--gray-700);
+  padding-left: 22px;
+  position: relative;
+}
+
+.recommendation ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--blue-500);
+  font-weight: bold;
+}
+
+/* Category Score Bars */
+.category-scores {
+  margin-top: 24px;
+}
+
+.cat-score-row {
+  margin-bottom: 14px;
+}
+
+.cat-score-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.cat-score-label span:first-child {
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.cat-score-label span:last-child {
+  color: var(--gray-500);
+}
+
+.cat-score-bar {
+  background: var(--gray-200);
+  height: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cat-score-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.8s ease;
+}
+
+/* ========== Report Page ========== */
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.report-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: var(--transition);
+}
+
+.report-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.report-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.report-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.report-card-icon.blue { background: var(--blue-100); }
+.report-card-icon.teal { background: #ccfbf1; }
+.report-card-icon.purple { background: #ede9fe; }
+.report-card-icon.orange { background: #ffedd5; }
+
+.report-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy-800);
+}
+
+.report-card .subtitle {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 2px;
+}
+
+.report-card .detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--gray-600);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.report-card .detail-row:last-child {
+  border-bottom: none;
+}
+
+.report-card .detail-row .icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.report-card a {
+  color: var(--blue-500);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.report-card a:hover {
+  text-decoration: underline;
+}
+
+.protection-box {
+  background: linear-gradient(135deg, var(--navy-800), var(--navy-600));
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-top: 12px;
+}
+
+.protection-box h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.protection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.protection-item {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+
+.protection-item .icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.protection-item h4 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.protection-item p {
+  font-size: 12px;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* ========== Search / FAQ Page ========== */
+.search-box {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  margin-bottom: 28px;
+}
+
+.search-input-wrap {
+  display: flex;
+  gap: 12px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 18px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.search-input:focus {
+  border-color: var(--blue-400);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.search-input::placeholder {
+  color: var(--gray-400);
+}
+
+.filter-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.filter-tag {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  color: var(--gray-600);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-tag:hover, .filter-tag.active {
+  background: var(--blue-500);
+  color: var(--white);
+  border-color: var(--blue-500);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.faq-question {
+  padding: 18px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy-800);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+}
+
+.faq-question:hover {
+  background: var(--blue-50);
+}
+
+.faq-tag {
+  background: var(--blue-100);
+  color: var(--blue-500);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.faq-tag.case { background: #ede9fe; color: #7c3aed; }
+.faq-tag.guide { background: #ccfbf1; color: #0d9488; }
+.faq-tag.law { background: #ffedd5; color: #ea580c; }
+
+.faq-arrow {
+  margin-left: auto;
+  font-size: 12px;
+  transition: transform 0.3s;
+  color: var(--gray-400);
+}
+
+.faq-item.open .faq-arrow {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.faq-answer-inner {
+  padding: 0 24px 18px;
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.8;
+  border-top: 1px solid var(--gray-100);
+  padding-top: 16px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--gray-400);
+}
+
+.no-results .icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.no-results p {
+  font-size: 15px;
+}
+
+/* ========== Footer ========== */
+.footer {
+  background: var(--navy-900);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+}
+
+.footer a {
+  color: var(--blue-300);
+  text-decoration: none;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .header-top { flex-direction: column; gap: 12px; }
+  .nav { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav-btn { padding: 10px 14px; font-size: 13px; }
+  .hero { padding: 32px 24px; }
+  .hero h2 { font-size: 22px; }
+  .process-steps { flex-direction: column; }
+  .step-arrow { display: none; }
+  .quick-actions { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+  .report-grid { grid-template-columns: 1fr; }
+  .result-card { padding: 24px; }
+  .check-item { flex-direction: column; gap: 8px; }
+  .radio-group { align-self: flex-start; }
+  .mobile-menu-btn { display: block; }
+  .protection-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .main { padding: 20px 16px 40px; }
+  .logo-text h1 { font-size: 15px; }
+  .hero h2 { font-size: 19px; }
+  .level-card { min-width: 100px; padding: 12px 16px; }
+}
+
+/* Scroll to top */
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  background: var(--blue-500);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.scroll-top.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.scroll-top:hover {
+  background: var(--navy-700);
+  transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="logo">
+        <div class="logo-icon">🔍</div>
+        <div class="logo-text">
+          <h1>R&D 부정수급 진단포털</h1>
+          <span>Research Fraud Prevention Portal</span>
+        </div>
+      </div>
+      <nav class="nav" id="mainNav">
+        <button class="nav-btn active" onclick="showPage('home')">🏠 홈</button>
+        <button class="nav-btn" onclick="showPage('checklist')">✅ 자가진단</button>
+        <button class="nav-btn" onclick="showPage('report')">📢 신고안내</button>
+        <button class="nav-btn" onclick="showPage('search')">🔎 사례/FAQ</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main">
+
+  <!-- ===== HOME PAGE ===== -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">📋 부정수급 예방 · 자가진단 · 신고안내</div>
+        <h2>연구개발(R&D) 부정수급<br>체크리스트 및 신고 경로 안내</h2>
+        <p>국가 연구개발사업의 투명성과 신뢰성을 확보하기 위한 부정수급 자가진단 및 신고 안내 포털입니다. 체크리스트를 통해 사전에 부정수급 위험을 점검하고, 필요 시 올바른 신고 경로를 안내받으세요.</p>
+        <div class="quick-actions">
+          <div class="quick-card" onclick="showPage('checklist')">
+            <div class="icon">📝</div>
+            <h3>자가진단 시작하기</h3>
+            <p>체크리스트를 통해 부정수급 위험도를 점검해보세요</p>
+          </div>
+          <div class="quick-card" onclick="showPage('report')">
+            <div class="icon">📞</div>
+            <h3>신고 경로 확인</h3>
+            <p>기관별 신고 방법과 보호제도를 안내합니다</p>
+          </div>
+          <div class="quick-card" onclick="showPage('search')">
+            <div class="icon">📚</div>
+            <h3>사례 및 FAQ</h3>
+            <p>실제 적발 사례와 자주 묻는 질문을 확인하세요</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 부정수급 정의 -->
+    <h2 class="section-title"><span class="emoji">⚠️</span> R&D 부정수급이란?</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>📌 정의</h3>
+        <p>국가연구개발사업의 연구비를 거짓이나 부정한 방법으로 지급받거나 목적 외로 사용하는 행위를 말합니다. 「국가연구개발혁신법」 제32조에 근거하여 제재됩니다.</p>
+      </div>
+      <div class="info-card">
+        <h3>🚨 대표 유형</h3>
+        <ul>
+          <li>연구비 유용 · 횡령</li>
+          <li>인건비 부당 편취</li>
+          <li>허위 세금계산서 · 영수증 처리</li>
+          <li>장비 · 재료비 부정 사용</li>
+          <li>연구 실적 허위 보고</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>⚖️ 제재 내용</h3>
+        <ul>
+          <li>연구비 환수 및 제재부가금 부과</li>
+          <li>참여 제한 (최대 10년)</li>
+          <li>형사 고발 (사기죄 등)</li>
+          <li>국가 R&D 사업 참여 제한 등록</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 신고 처리 절차 -->
+    <h2 class="section-title"><span class="emoji">📋</span> 신고 처리 절차</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>부정행위 인지</h4>
+        <p>부정수급 의심 행위를 발견</p>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>신고 접수</h4>
+        <p>해당 기관에 온·오프라인 신고</p>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>사실 조사</h4>
+        <p>전담 기관의 현장 실태조사</p>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>심의·의결</h4>
+        <p>부정수급 여부 판정 및 심의</p>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h4>제재 처분</h4>
+        <p>환수, 참여제한 등 처분 확정</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CHECKLIST PAGE ===== -->
+  <div id="page-checklist" class="page">
+    <h2 class="section-title"><span class="emoji">✅</span> 부정수급 자가진단 체크리스트</h2>
+
+    <div class="checklist-intro">
+      <h3>📋 진단 안내</h3>
+      <p>아래 문항에 대해 현재 해당 여부를 체크해주세요. '예'로 응답한 항목이 많을수록 부정수급 위험이 높습니다. 총 20개 문항이며, 결과는 즉시 확인할 수 있습니다.</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="progress-text" id="progressText">0 / 20 문항 응답 완료</div>
+    </div>
+
+    <!-- 카테고리 1: 연구비 유용 -->
+    <div class="category-section">
+      <div class="category-header open" onclick="toggleCategory(this)">
+        <span>💰</span> 1. 연구비 유용·횡령
+        <span class="arrow">▼</span>
+      </div>
+      <div class="category-body open">
+        <div class="check-item">
+          <label>1-1. 연구비를 연구 목적 외 개인 용도로 사용한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q1" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q1" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>1-2. 연구과제 간 연구비를 임의로 전용하여 사용한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q2" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q2" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>1-3. 연구비 집행 시 소속기관의 승인 없이 사용한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q3" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q3" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>1-4. 연구비 잔액을 부당하게 인출하거나 개인 계좌로 이체한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q4" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q4" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>1-5. 연구비 집행 증빙서류를 허위로 작성하거나 위조한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q5" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q5" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리 2: 인건비 편취 -->
+    <div class="category-section">
+      <div class="category-header" onclick="toggleCategory(this)">
+        <span>👤</span> 2. 인건비 부당 편취
+        <span class="arrow">▼</span>
+      </div>
+      <div class="category-body">
+        <div class="check-item">
+          <label>2-1. 실제 연구에 참여하지 않은 사람에게 인건비를 지급한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q6" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q6" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>2-2. 연구원의 실제 참여율과 다르게 인건비를 산정한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q7" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q7" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>2-3. 학생연구원의 인건비를 연구책임자가 가로채 사용한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q8" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q8" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>2-4. 참여연구원 변경 사항을 고의로 보고하지 않은 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q9" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q9" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>2-5. 중복 과제 참여 상태에서 인건비를 이중 수령한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q10" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q10" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리 3: 허위 영수증 -->
+    <div class="category-section">
+      <div class="category-header" onclick="toggleCategory(this)">
+        <span>🧾</span> 3. 허위 영수증·세금계산서 처리
+        <span class="arrow">▼</span>
+      </div>
+      <div class="category-body">
+        <div class="check-item">
+          <label>3-1. 실제 거래 없이 세금계산서·영수증을 발급받은 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q11" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q11" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>3-2. 거래 금액을 실제보다 부풀려서 증빙을 처리한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q12" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q12" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>3-3. 연구 목적과 관계없는 물품을 구매하고 연구비로 처리한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q13" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q13" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>3-4. 특정 거래처와 사적 이해관계(리베이트 등)가 있는 상태에서 거래한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q14" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q14" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>3-5. 카드 결제 후 현금으로 환불받아 개인적으로 사용한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q15" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q15" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리 4: 장비/재료비 -->
+    <div class="category-section">
+      <div class="category-header" onclick="toggleCategory(this)">
+        <span>🔬</span> 4. 장비·재료비 부정 사용
+        <span class="arrow">▼</span>
+      </div>
+      <div class="category-body">
+        <div class="check-item">
+          <label>4-1. 연구 장비를 구입 후 개인 용도나 타 과제에 무단 전용한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q16" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q16" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>4-2. 장비 구매 시 수의계약 기준을 위반하거나 분할 발주한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q17" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q17" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>4-3. 재료비를 과다 계상하여 잔액을 개인적으로 사용한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q18" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q18" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>4-4. 연구 장비 등록·관리 대장에 허위 내용을 기재한 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q19" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q19" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+        <div class="check-item">
+          <label>4-5. 위탁연구비를 허위 정산하거나 미집행 연구비를 환수하지 않은 적이 있습니까?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="q20" value="yes" onchange="updateProgress()"> 예</label>
+            <label class="radio-label"><input type="radio" name="q20" value="no" onchange="updateProgress()"> 아니오</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-primary" onclick="showResult()">📊 결과 확인</button>
+      <button class="btn-secondary" onclick="resetChecklist()">🔄 초기화</button>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result-container" id="resultContainer">
+      <div class="result-card">
+        <div class="result-header">
+          <h3>📊 자가진단 결과</h3>
+          <p style="color:var(--gray-500); font-size:14px;">응답 내용을 기반으로 분석한 위험도입니다</p>
+        </div>
+
+        <!-- Gauge -->
+        <div class="gauge-container">
+          <div class="gauge">
+            <svg viewBox="0 0 200 120">
+              <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
+              <path id="gaugeArc" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#22c55e" stroke-width="14" stroke-linecap="round" stroke-dasharray="0 251.33" />
+            </svg>
+            <div class="gauge-label">
+              <div class="gauge-value" id="gaugeValue">0</div>
+              <div class="gauge-text">위험 점수 / 100</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level Cards -->
+        <div class="result-level">
+          <div class="level-card safe" id="levelSafe">
+            <div class="level-icon">✅</div>
+            <h4>정상</h4>
+            <p>0~25점</p>
+          </div>
+          <div class="level-card caution" id="levelCaution">
+            <div class="level-icon">⚠️</div>
+            <h4>주의</h4>
+            <p>26~50점</p>
+          </div>
+          <div class="level-card danger" id="levelDanger">
+            <div class="level-icon">🚨</div>
+            <h4>위험</h4>
+            <p>51~100점</p>
+          </div>
+        </div>
+
+        <!-- Category Scores -->
+        <div class="category-scores" id="categoryScores"></div>
+
+        <!-- Recommendations -->
+        <div class="recommendation" id="recommendation"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REPORT PAGE ===== -->
+  <div id="page-report" class="page">
+    <h2 class="section-title"><span class="emoji">📢</span> 신고 경로 및 기관 안내</h2>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <div class="report-card-header">
+          <div class="report-card-icon blue">🏛️</div>
+          <div>
+            <h3>국민권익위원회</h3>
+            <div class="subtitle">국민신문고 · 공익신고</div>
+          </div>
+        </div>
+        <div class="detail-row"><span class="icon">📞</span> 전화: 110 (정부민원콜센터)</div>
+        <div class="detail-row"><span class="icon">🌐</span> <a href="https://www.acrc.go.kr" target="_blank">www.acrc.go.kr</a></div>
+        <div class="detail-row"><span class="icon">📝</span> 국민신문고를 통한 온라인 신고 가능</div>
+        <div class="detail-row"><span class="icon">🔒</span> 공익신고자 보호법에 의한 보호</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-header">
+          <div class="report-card-icon teal">🔬</div>
+          <div>
+            <h3>한국연구재단 (NRF)</h3>
+            <div class="subtitle">연구윤리 신고센터</div>
+          </div>
+        </div>
+        <div class="detail-row"><span class="icon">📞</span> 전화: 042-869-6114</div>
+        <div class="detail-row"><span class="icon">🌐</span> <a href="https://www.nrf.re.kr" target="_blank">www.nrf.re.kr</a></div>
+        <div class="detail-row"><span class="icon">📝</span> 연구비 부정사용 전용 신고 채널</div>
+        <div class="detail-row"><span class="icon">📧</span> 이메일 및 우편 신고 가능</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-header">
+          <div class="report-card-icon purple">🏢</div>
+          <div>
+            <h3>과학기술정보통신부</h3>
+            <div class="subtitle">R&D 부정신고센터</div>
+          </div>
+        </div>
+        <div class="detail-row"><span class="icon">📞</span> 전화: 044-202-4762</div>
+        <div class="detail-row"><span class="icon">🌐</span> <a href="https://www.msit.go.kr" target="_blank">www.msit.go.kr</a></div>
+        <div class="detail-row"><span class="icon">📝</span> 과기부 홈페이지 내 신고센터 운영</div>
+        <div class="detail-row"><span class="icon">📮</span> 우편 접수 가능 (세종시 소재)</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-header">
+          <div class="report-card-icon orange">🛡️</div>
+          <div>
+            <h3>감사원</h3>
+            <div class="subtitle">국민감사 청구</div>
+          </div>
+        </div>
+        <div class="detail-row"><span class="icon">📞</span> 전화: 02-2011-2114</div>
+        <div class="detail-row"><span class="icon">🌐</span> <a href="https://www.bai.go.kr" target="_blank">www.bai.go.kr</a></div>
+        <div class="detail-row"><span class="icon">📝</span> 국민감사 청구 및 공직비위 신고</div>
+        <div class="detail-row"><span class="icon">🔒</span> 신고자 신원 비공개 보장</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-header">
+          <div class="report-card-icon blue">⚖️</div>
+          <div>
+            <h3>검찰·경찰</h3>
+            <div class="subtitle">수사기관 신고</div>
+          </div>
+        </div>
+        <div class="detail-row"><span class="icon">📞</span> 경찰: 112 / 검찰: 1301</div>
+        <div class="detail-row"><span class="icon">🌐</span> <a href="https://www.spo.go.kr" target="_blank">www.spo.go.kr</a> (대검찰청)</div>
+        <div class="detail-row"><span class="icon">📝</span> 사기·횡령 등 형사사건 고소·고발</div>
+        <div class="detail-row"><span class="icon">⚖️</span> 형법 및 특별법에 의한 처벌</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-header">
+          <div class="report-card-icon teal">🏫</div>
+          <div>
+            <h3>소속기관 내부 신고</h3>
+            <div class="subtitle">대학·출연연 자체 신고</div>
+          </div>
+        </div>
+        <div class="detail-row"><span class="icon">📋</span> 소속기관 연구윤리위원회 신고</div>
+        <div class="detail-row"><span class="icon">📝</span> 내부감사실 · 청렴신고센터 활용</div>
+        <div class="detail-row"><span class="icon">🔒</span> 내부공익신고자 보호 적용</div>
+        <div class="detail-row"><span class="icon">💡</span> 기관 자체 조사 후 전문기관 통보</div>
+      </div>
+    </div>
+
+    <!-- 신고자 보호 -->
+    <div class="protection-box">
+      <h3>🛡️ 신고자 보호 및 포상제도</h3>
+      <div class="protection-grid">
+        <div class="protection-item">
+          <div class="icon">🔒</div>
+          <h4>신원 보호</h4>
+          <p>「공익신고자 보호법」에 따라 신고자의 인적 사항 및 신원이 철저히 보호됩니다.</p>
+        </div>
+        <div class="protection-item">
+          <div class="icon">🚫</div>
+          <h4>불이익 금지</h4>
+          <p>신고를 이유로 한 파면, 징계, 전보 등 일체의 불이익 조치가 금지됩니다.</p>
+        </div>
+        <div class="protection-item">
+          <div class="icon">💰</div>
+          <h4>포상금·보상금</h4>
+          <p>신고로 인해 공공기관 수입 회복 또는 증대 시 최대 30억 원의 보상금이 지급될 수 있습니다.</p>
+        </div>
+        <div class="protection-item">
+          <div class="icon">⚖️</div>
+          <h4>법적 보호</h4>
+          <p>보호조치 위반 시 해당 기관에 3천만 원 이하의 과태료가 부과됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SEARCH / FAQ PAGE ===== -->
+  <div id="page-search" class="page">
+    <h2 class="section-title"><span class="emoji">🔎</span> 사례 및 자주 묻는 질문</h2>
+
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <input type="text" class="search-input" id="searchInput" placeholder="키워드를 입력하세요 (예: 인건비, 장비, 영수증)" oninput="filterFAQ()">
+      </div>
+      <div class="filter-tags">
+        <button class="filter-tag active" onclick="setFilter('all', this)">전체</button>
+        <button class="filter-tag" onclick="setFilter('case', this)">적발사례</button>
+        <button class="filter-tag" onclick="setFilter('faq', this)">FAQ</button>
+        <button class="filter-tag" onclick="setFilter('guide', this)">가이드</button>
+        <button class="filter-tag" onclick="setFilter('law', this)">법령</button>
+      </div>
+    </div>
+
+    <div class="faq-list" id="faqList"></div>
+    <div class="no-results" id="noResults" style="display:none;">
+      <div class="icon">🔍</div>
+      <p>검색 결과가 없습니다. 다른 키워드로 검색해보세요.</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>R&D 부정수급 진단포털 | 본 포털은 교육·안내 목적이며 법적 효력이 없습니다.</p>
+  <p style="margin-top:6px;">© 2026 R&D Fraud Prevention Portal. All rights reserved.</p>
+</footer>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ========== Navigation ==========
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('page-' + pageId).classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  var tabs = { home: 0, checklist: 1, report: 2, search: 3 };
+  document.querySelectorAll('.nav-btn')[tabs[pageId]].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ========== Category Toggle ==========
+function toggleCategory(header) {
+  header.classList.toggle('open');
+  var body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// ========== Progress ==========
+function updateProgress() {
+  var total = 20;
+  var answered = 0;
+  for (var i = 1; i <= total; i++) {
+    var radios = document.getElementsByName('q' + i);
+    for (var j = 0; j < radios.length; j++) {
+      if (radios[j].checked) { answered++; break; }
+    }
+  }
+  var pct = (answered / total) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = answered + ' / ' + total + ' 문항 응답 완료';
+}
+
+// ========== Show Result ==========
+function showResult() {
+  var total = 20;
+  var yesCount = 0;
+  var answered = 0;
+  var catYes = [0, 0, 0, 0];
+  var catNames = ['연구비 유용·횡령', '인건비 부당 편취', '허위 영수증·세금계산서', '장비·재료비 부정사용'];
+
+  for (var i = 1; i <= total; i++) {
+    var radios = document.getElementsByName('q' + i);
+    for (var j = 0; j < radios.length; j++) {
+      if (radios[j].checked) {
+        answered++;
+        if (radios[j].value === 'yes') {
+          yesCount++;
+          var catIdx = Math.floor((i - 1) / 5);
+          catYes[catIdx]++;
+        }
+        break;
+      }
+    }
+  }
+
+  if (answered < total) {
+    alert('모든 문항(' + total + '개)에 응답해주세요. 현재 ' + answered + '개 응답 완료.');
+    return;
+  }
+
+  var score = Math.round((yesCount / total) * 100);
+
+  // Animate gauge
+  var arcLength = 251.33;
+  var fillLength = (score / 100) * arcLength;
+  var gaugeArc = document.getElementById('gaugeArc');
+
+  var color = '#22c55e';
+  if (score > 50) color = '#ef4444';
+  else if (score > 25) color = '#eab308';
+
+  gaugeArc.setAttribute('stroke', color);
+  gaugeArc.setAttribute('stroke-dasharray', '0 ' + arcLength);
+
+  var container = document.getElementById('resultContainer');
+  container.classList.add('show');
+
+  setTimeout(function() {
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+
+  // Animate
+  var current = 0;
+  var target = fillLength;
+  var gaugeVal = document.getElementById('gaugeValue');
+  var step = target / 40;
+  var scoreStep = score / 40;
+  var frame = 0;
+
+  var anim = setInterval(function() {
+    frame++;
+    current += step;
+    if (frame >= 40) {
+      current = target;
+      clearInterval(anim);
+    }
+    gaugeArc.setAttribute('stroke-dasharray', current + ' ' + arcLength);
+    gaugeVal.textContent = Math.round((frame / 40) * score);
+  }, 25);
+
+  // Level cards
+  document.getElementById('levelSafe').classList.remove('active');
+  document.getElementById('levelCaution').classList.remove('active');
+  document.getElementById('levelDanger').classList.remove('active');
+
+  if (score <= 25) document.getElementById('levelSafe').classList.add('active');
+  else if (score <= 50) document.getElementById('levelCaution').classList.add('active');
+  else document.getElementById('levelDanger').classList.add('active');
+
+  // Category scores
+  var catHtml = '<h4 style="font-size:15px; color:#0f172a; margin-bottom:16px;">📊 카테고리별 분석</h4>';
+  var barColors = ['#3b82f6', '#8b5cf6', '#f97316', '#14b8a6'];
+  for (var c = 0; c < 4; c++) {
+    var pctCat = (catYes[c] / 5) * 100;
+    catHtml += '<div class="cat-score-row">';
+    catHtml += '<div class="cat-score-label"><span>' + catNames[c] + '</span><span>' + catYes[c] + '/5 항목 해당</span></div>';
+    catHtml += '<div class="cat-score-bar"><div class="cat-score-fill" style="width:' + pctCat + '%; background:' + barColors[c] + ';"></div></div>';
+    catHtml += '</div>';
+  }
+  document.getElementById('categoryScores').innerHTML = catHtml;
+
+  // Recommendations
+  var recHtml = '';
+  if (score <= 25) {
+    recHtml = '<h4>💚 정상 - 현재 양호한 상태입니다</h4><ul>';
+    recHtml += '<li>현재 연구비 관리 상태가 양호합니다.</li>';
+    recHtml += '<li>정기적으로 자가진단을 실시하여 예방적 관리를 유지하세요.</li>';
+    recHtml += '<li>연구비 사용 관련 규정 변경 시 최신 지침을 확인하세요.</li>';
+    recHtml += '<li>연구실 구성원에게도 부정수급 예방 교육을 권장합니다.</li>';
+    recHtml += '</ul>';
+  } else if (score <= 50) {
+    recHtml = '<h4>⚠️ 주의 - 일부 항목에 대한 점검이 필요합니다</h4><ul>';
+    recHtml += '<li>해당 항목에 대해 즉시 내부 점검을 실시하세요.</li>';
+    recHtml += '<li>소속기관의 연구비 관리 규정을 재확인하세요.</li>';
+    recHtml += '<li>연구비 집행 관련 증빙서류를 재정비하세요.</li>';
+    recHtml += '<li>필요 시 소속기관 연구관리 부서에 상담을 요청하세요.</li>';
+    recHtml += '<li>자발적 시정 시 제재가 경감될 수 있습니다.</li>';
+    recHtml += '</ul>';
+  } else {
+    recHtml = '<h4>🚨 위험 - 즉각적인 조치가 필요합니다</h4><ul>';
+    recHtml += '<li>다수의 부정수급 위험 항목이 확인되었습니다.</li>';
+    recHtml += '<li>즉시 해당 행위를 중단하고 소속기관에 자진 신고를 권장합니다.</li>';
+    recHtml += '<li>자발적 시정 시 「국가연구개발혁신법」에 따라 제재가 경감됩니다.</li>';
+    recHtml += '<li>법률 전문가 상담을 통해 적절한 대응 방안을 마련하세요.</li>';
+    recHtml += '<li>향후 연구비 관리 체계를 전면 재정비할 것을 권고합니다.</li>';
+    recHtml += '</ul>';
+  }
+  document.getElementById('recommendation').innerHTML = recHtml;
+}
+
+// ========== Reset ==========
+function resetChecklist() {
+  for (var i = 1; i <= 20; i++) {
+    var radios = document.getElementsByName('q' + i);
+    for (var j = 0; j < radios.length; j++) {
+      radios[j].checked = false;
+    }
+  }
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('progressText').textContent = '0 / 20 문항 응답 완료';
+  document.getElementById('resultContainer').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ========== FAQ Data ==========
+var faqData = [
+  {
+    tag: 'case', tagLabel: '적발사례',
+    q: '대학교수 A, 연구비 5억원 유용 적발',
+    a: 'A교수는 국가연구개발과제 수행 중 허위 세금계산서를 이용하여 약 5억 원의 연구비를 유용한 혐의로 적발되었습니다. 실제 거래 없이 거래처와 공모하여 허위 증빙을 만들고, 이를 통해 지급받은 연구비를 개인 용도로 사용하였습니다. 결과적으로 연구비 전액 환수, 5년간 국가 R&D 참여 제한, 형사 고발(사기죄) 조치가 이루어졌습니다.',
+    keywords: '교수 유용 세금계산서 허위 사기 환수'
+  },
+  {
+    tag: 'case', tagLabel: '적발사례',
+    q: '연구원 B, 학생인건비 편취 사건',
+    a: '연구원 B는 대학원생 명의로 인건비를 신청하여 지급받은 후, 해당 금액을 자신의 계좌로 이체받아 사용한 혐의로 적발되었습니다. 해당 대학원생들은 실제 연구에 참여하지 않았으며, B연구원은 이를 알면서도 허위 참여 확인서를 작성하였습니다. 인건비 전액 환수 및 3년 참여 제한 처분을 받았습니다.',
+    keywords: '학생 인건비 편취 대학원 허위 참여'
+  },
+  {
+    tag: 'case', tagLabel: '적발사례',
+    q: '중소기업 C, 장비구매비 부풀리기 적발',
+    a: 'C기업은 연구장비 구매 시 실제 가격보다 부풀린 견적서를 제출하고, 차액을 거래처로부터 환급받아 유용한 사실이 적발되었습니다. 조달청 시가 대비 약 40% 이상 과다 계상된 금액이 확인되었으며, 해당 금액 환수와 함께 제재부가금이 부과되었습니다.',
+    keywords: '장비 구매 부풀리기 견적서 중소기업 과다계상'
+  },
+  {
+    tag: 'case', tagLabel: '적발사례',
+    q: '출연연 D기관, 연구실적 허위 보고 적발',
+    a: 'D기관은 연구과제 최종 보고서에 실제 달성하지 않은 연구 성과를 허위로 기재하고, 후속 과제 선정에 활용한 혐의로 적발되었습니다. 논문 실적 조작 및 특허 출원 허위 보고가 확인되었으며, 해당 과제의 연구비 환수 및 책임연구원 참여 제한 조치가 내려졌습니다.',
+    keywords: '출연연 실적 허위 보고 논문 특허 조작'
+  },
+  {
+    tag: 'faq', tagLabel: 'FAQ',
+    q: '부정수급이 적발되면 어떤 제재를 받나요?',
+    a: '「국가연구개발혁신법」 제32조에 따라, 부정수급이 확인될 경우 ① 해당 연구비 환수, ② 제재부가금 부과(최대 연구비의 5배), ③ 국가 R&D 사업 참여 제한(최대 10년), ④ 형사 고발(사기죄, 횡령죄 등) 등의 제재가 이루어질 수 있습니다. 부정행위의 경중에 따라 제재 수준이 결정됩니다.',
+    keywords: '제재 처벌 환수 참여제한 제재부가금 벌금'
+  },
+  {
+    tag: 'faq', tagLabel: 'FAQ',
+    q: '익명으로 신고할 수 있나요?',
+    a: '네, 익명 신고가 가능합니다. 국민권익위원회 국민신문고, 각 전문기관 신고센터 등에서 익명 신고를 접수하고 있습니다. 다만, 신고의 실효성을 높이기 위해 구체적 증거자료를 함께 제출하는 것이 권장됩니다. 「공익신고자 보호법」에 따라 신고자의 신원은 철저히 보호됩니다.',
+    keywords: '익명 신고 비밀 보호 공익신고자'
+  },
+  {
+    tag: 'faq', tagLabel: 'FAQ',
+    q: '자발적으로 시정하면 제재가 감경되나요?',
+    a: '네, 「국가연구개발혁신법」 및 관련 지침에 따라, 부정수급 사실을 자발적으로 신고하고 시정 조치를 취한 경우 제재 수위가 감경될 수 있습니다. 자진 신고 시 참여 제한 기간 단축, 제재부가금 감면 등의 혜택이 있을 수 있으므로, 문제를 인지한 즉시 소속기관 또는 전문기관에 신고하는 것이 유리합니다.',
+    keywords: '자발적 시정 감경 자진신고 감면'
+  },
+  {
+    tag: 'faq', tagLabel: 'FAQ',
+    q: '신고하면 보상금을 받을 수 있나요?',
+    a: '「공익신고자 보호법」에 따라, 공익신고로 인해 국가·지방자치단체의 수입 회복이나 증대에 기여한 경우 보상금을 받을 수 있습니다. 보상금은 회복 또는 증대된 수입액의 4~20%이며, 최대 30억 원까지 지급됩니다. 또한, 공익에 기여한 경우 별도의 포상금(최대 2억 원)이 지급될 수도 있습니다.',
+    keywords: '보상금 포상금 신고 보상 공익신고'
+  },
+  {
+    tag: 'guide', tagLabel: '가이드',
+    q: '연구비 카드 사용 시 유의사항은?',
+    a: '연구비 전용카드(연구비카드)는 반드시 연구 목적의 지출에만 사용해야 합니다. ① 개인 물품 구매 금지, ② 사적 식사·음주 비용 사용 금지, ③ 카드 결제 후 현금 환급 금지, ④ 타인에게 카드 대여 금지 등의 원칙을 준수해야 합니다. 위반 시 연구비 부정 사용으로 간주되어 제재 대상이 됩니다.',
+    keywords: '카드 연구비카드 사용 유의사항 결제'
+  },
+  {
+    tag: 'guide', tagLabel: '가이드',
+    q: '연구비 비목 간 전용 기준은 어떻게 되나요?',
+    a: '「국가연구개발혁신법 시행령」에 따라, 연구비 비목 간 전용은 일정 범위 내에서 연구책임자의 판단으로 가능합니다. 다만, 직접비의 각 비목 간 전용은 해당 비목 계상액의 20% 범위 내에서 가능하며, 이를 초과하는 경우 전문기관의 사전 승인이 필요합니다. 인건비에서 타 비목으로의 전용은 원칙적으로 불가합니다.',
+    keywords: '비목 전용 연구비 인건비 직접비 간접비'
+  },
+  {
+    tag: 'law', tagLabel: '법령',
+    q: '국가연구개발혁신법의 주요 부정수급 관련 조항은?',
+    a: '「국가연구개발혁신법」 제32조(제재처분)에서 부정수급에 대한 제재를 규정하고 있습니다. 주요 내용으로는 ① 거짓·부정한 방법으로 연구비를 지급받은 경우, ② 연구비를 목적 외 용도로 사용한 경우, ③ 정당한 사유 없이 연구개발과제의 수행을 포기한 경우 등이 포함됩니다. 위반 시 환수, 참여제한, 제재부가금 등의 처분이 이루어집니다.',
+    keywords: '혁신법 법령 제32조 제재처분 법률'
+  },
+  {
+    tag: 'law', tagLabel: '법령',
+    q: '공익신고자 보호법의 핵심 내용은?',
+    a: '「공익신고자 보호법」은 공익침해행위를 신고한 사람을 보호하기 위한 법률입니다. 핵심 내용으로는 ① 신고자의 비밀 보장(신원 정보 공개 금지), ② 불이익 조치 금지(파면, 징계, 전보 등), ③ 신변보호 조치, ④ 보상금·포상금 지급 등이 있습니다. 이 법에 따라 R&D 부정수급 신고자도 보호 대상이 됩니다.',
+    keywords: '공익신고자 보호법 비밀보장 불이익 신변보호'
+  }
+];
+
+// ========== Render FAQ ==========
+var currentFilter = 'all';
+
+function renderFAQ() {
+  var list = document.getElementById('faqList');
+  var keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+  var html = '';
+  var count = 0;
+
+  for (var i = 0; i < faqData.length; i++) {
+    var item = faqData[i];
+    if (currentFilter !== 'all' && item.tag !== currentFilter) continue;
+    if (keyword) {
+      var searchText = (item.q + ' ' + item.a + ' ' + item.keywords).toLowerCase();
+      if (searchText.indexOf(keyword) === -1) continue;
+    }
+
+    var tagClass = item.tag;
+    html += '<div class="faq-item" onclick="toggleFAQ(this)">';
+    html += '<div class="faq-question">';
+    html += '<span class="faq-tag ' + tagClass + '">' + item.tagLabel + '</span>';
+    html += '<span>' + item.q + '</span>';
+    html += '<span class="faq-arrow">▼</span>';
+    html += '</div>';
+    html += '<div class="faq-answer"><div class="faq-answer-inner">' + item.a + '</div></div>';
+    html += '</div>';
+    count++;
+  }
+
+  list.innerHTML = html;
+  document.getElementById('noResults').style.display = count === 0 ? 'block' : 'none';
+}
+
+function filterFAQ() { renderFAQ(); }
+
+function setFilter(tag, el) {
+  currentFilter = tag;
+  document.querySelectorAll('.filter-tag').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  renderFAQ();
+}
+
+function toggleFAQ(item) {
+  var isOpen = item.classList.contains('open');
+  item.classList.toggle('open');
+  var answer = item.querySelector('.faq-answer');
+  if (isOpen) {
+    answer.style.maxHeight = '0';
+  } else {
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+
+// ========== Scroll to Top ==========
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scrollTopBtn');
+  if (window.scrollY > 300) {
+    btn.classList.add('show');
+  } else {
+    btn.classList.remove('show');
+  }
+});
+
+// ========== Init ==========
+window.addEventListener('DOMContentLoaded', function() {
+  renderFAQ();
+});
+</script>
+</body>
+</html>
